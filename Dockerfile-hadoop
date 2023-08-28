@@ -16,9 +16,10 @@ RUN apt-get install -y --no-install-recommends \
 # RUN apt install -y --no-install-recommends \
 #     openjdk-8-jdk
 # For AMD based architecture use
-# ENV JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64/
-COPY --from=jdk /usr/local/openjdk-11 /usr/lib/jvm/java-11-openjdk-arm64/
-ENV JAVA_HOME=/usr/lib/jvm/java-11-openjdk-arm64/
+ENV JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64/
+COPY --from=jdk /usr/local/openjdk-11 /usr/lib/jvm/java-11-openjdk-amd64/
+# COPY --from=jdk /usr/local/openjdk-11 /usr/lib/jvm/java-11-openjdk-arm64/
+# ENV JAVA_HOME=/usr/lib/jvm/java-11-openjdk-arm64/
 
 # --------------------------------------------------------
 # HADOOP
@@ -60,7 +61,7 @@ COPY conf/yarn-site.xml $HADOOP_CONF_DIR/yarn-site.xml
 # SPARK
 # --------------------------------------------------------
 
-ENV SPARK_VERSION spark-3.3.2
+ENV SPARK_VERSION spark-3.3.3
 ENV SPARK_URL https://downloads.apache.org/spark/${SPARK_VERSION}/${SPARK_VERSION}-bin-hadoop3.tgz
 ENV SPARK_HOME=/opt/$SPARK_VERSION
 ENV PATH $SPARK_HOME/bin:$PATH
